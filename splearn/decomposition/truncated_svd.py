@@ -301,6 +301,7 @@ class SparkTruncatedSVD(TruncatedSVD, SparkBroadcasterMixin):
                               tol=self.tol, compute_u=False,
                               seed=self.random_state)
             self.components_ = V
+            self.singular_values_ = Sigma
             X.unpersist()
             return self.transform(Z)
         else:
