@@ -31,7 +31,7 @@ class TestSVDFunctions(SplearnTestCase):
         assert_array_almost_equal(u, match_sign(u, u_true[:, 0]))
 
     def test_svd_em(self):
-        X, X_rdd = self.make_dense_rdd((1e3, 4))
+        X, X_rdd = self.make_dense_rdd((1000, 4))
         u, s, v = svd_em(X_rdd, 1, seed=42, maxiter=50)
         u = np.squeeze(np.concatenate(np.array(u.collect()))).T
         u_true, s_true, v_true = ln.svd(X)
@@ -43,7 +43,7 @@ class TestSVDFunctions(SplearnTestCase):
                np.allclose(-u, u_true[:, 0], atol=tol))
 
     def test_svd_em_sparse(self):
-        X, X_rdd = self.make_sparse_rdd((1e3, 4))
+        X, X_rdd = self.make_sparse_rdd((1000, 4))
         u, s, v = svd_em(X_rdd, 1, seed=42, maxiter=50)
         u = np.squeeze(np.concatenate(np.array(u.collect()))).T
         u_true, s_true, v_true = ln.svd(X.toarray())
@@ -58,7 +58,7 @@ class TestSVDFunctions(SplearnTestCase):
 class TestTruncatedSVD(SplearnTestCase):
 
     def test_same_components(self):
-        X, X_rdd = self.make_dense_rdd((1e3, 10))
+        X, X_rdd = self.make_dense_rdd((1000, 10))
 
         n_components = 2
         random_state = 42
@@ -79,7 +79,7 @@ class TestTruncatedSVD(SplearnTestCase):
                np.allclose(-v[0], v_true[0, :], atol=tol))
 
     def test_same_fit_transforms(self):
-        X, X_rdd = self.make_dense_rdd((1e3, 12))
+        X, X_rdd = self.make_dense_rdd((1000, 12))
 
         n_components = 4
         random_state = 42
