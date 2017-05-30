@@ -15,10 +15,10 @@ class TestVarianceThreshold(SplearnTestCase):
         dist = SparkVarianceThreshold()
 
         shapes = [((10, 5), None),
-                  ((1e3, 20), None),
-                  ((1e3, 20), 100),
-                  ((1e4, 100), None),
-                  ((1e4, 100), 600)]
+                  ((1000, 20), None),
+                  ((1000, 20), 100),
+                  ((10000, 100), None),
+                  ((10000, 100), 600)]
 
         for shape, block_size in shapes:
             X_dense, X_dense_rdd = self.make_dense_rdd()
