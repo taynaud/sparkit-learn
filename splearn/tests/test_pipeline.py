@@ -229,8 +229,8 @@ class TestFeatureUnion(SplearnTestCase):
         assert_equal(transformers, (svd, mock))
 
     def test_params_are_forwarded(self):
-        transformer1 = T()
-        transformer2 = T()
+        transformer1 = TransfT()
+        transformer2 = TransfT()
         pipe = SparkFeatureUnion([('t1', transformer1),
                                   ('t2', transformer2)])
 
@@ -266,7 +266,7 @@ class TestPipeline(SplearnTestCase):
         # method
         pipe = assert_raises(TypeError, SparkPipeline, [('svc', IncorrectT)])
         # Smoke test with only an estimator
-        clf = T()
+        clf = TransfT()
         pipe = SparkPipeline([('svc', clf)])
         assert_equal(pipe.get_params(deep=True),
                      dict(svc__a=None, svc__b=None, svc=clf,
